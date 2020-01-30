@@ -58,6 +58,7 @@ class Person {
     return `${this.name}, ${this.age}`
   }
 }
+// working
 
 /*
   TASK 2
@@ -74,7 +75,26 @@ class Person {
 */
 
 class Car {
+  constructor(model, milesPerGallon) {
+    this.model = model;
+    this.milesPerGallon = milesPerGallon;
+    this.tank = 0;
+    this.odometer = 0;
+  }
+  fill(gallons) {
+    this.tank += gallons;
+  }
+  drive(distance) {
+    let originalTank = this.tank;
+    this.odometer += distance;
+    this.tank = (distance / this.milesPerGallon);
 
+    if (this.tank > originalTank) { //If the new tank is bigger than the original tank's, there is not enough fuel
+    this.odometer = originalTank * this.milesPerGallon;
+    this.tank = 0;
+    return `I ran out of fuel at ${this.odometer} miles`;
+  }
+  }
 }
 
 /*
