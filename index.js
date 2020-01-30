@@ -170,6 +170,7 @@ class Student extends Lambdasian {
     this.previousBackground = attributes.previousBackground;
     this.className = attributes.className;
     this.favSubjects = attributes.favSubjects;
+    this.grade = attributes.grade; // meant to be a value between 0 and 100
   }
   listSubjects() {
     return `Loving ${this.favSubjects}`;
@@ -179,6 +180,27 @@ class Student extends Lambdasian {
   }
   sprintChallenge(subject) {
     return `${this.name} has begun sprint challenge on ${subject}`;
+  }
+  gradeAssignment() {
+    let min = this.grade * -1; // added value, if negative, never goes below 0
+    let max = 100 - this.grade; // added value, if positive, never goes above 100
+    min = Math.ceil(min); // converts to integer
+    max = Math.floor(max); // converts to integer
+    console.log(`min: ${min} max: ${max}`)
+    let randomGrade = (Math.floor(Math.random() * (max - min)) + min); // random number between max and min
+    console.log(`randomGrade: ${randomGrade}`);
+    this.grade += randomGrade;
+    console.log(`newGrade: ${this.grade}`)
+  }
+  graduate() {
+    let eligible = false;
+    if (this.grade >= 70) {
+      eligible = true;
+      console.log(`${this.name} will graduate with a grade of ${this.grade}`);
+    }
+    else {
+      console.log(`${this.name} will not graduate with a grade of ${this.grade}`);
+    }
   }
 }
 
@@ -202,7 +224,7 @@ class ProjectManager extends Instructor {
     this.favInstructor = attributes.favInstructor;
   }
   standUp(channel) {
-    return `${this.name} announces to ${channel}, @channel standy times!`
+    return `${this.name} announces to ${channel}, @channel standy times!`;
   }
   debugsCode(student, subject) {
     return `${this.name} debugs ${student.name}'s code on ${subject}`;
